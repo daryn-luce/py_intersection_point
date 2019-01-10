@@ -1,30 +1,16 @@
-#Y = 2.0x - 3.0
-#Y = -0.5x - 7.0
+import math
 
-lineAxOne = 192
-lineAyOne = -112
-lineAxTwo = 343
-lineAyTwo = 7
+def findSlope(line):
+	return (line["y2"] - line["y1"]) / (line["x2"] - line["x1"])
+	
+def findB(line, m):
+	return (line["y1"] - (m * line["x1"]))
+	
 
-lineBxOne = 654
-lineByOne = -58
-lineBxTwo = 787
-lineByTwo = 93
-
-def Slope(x1,y1,x2,y2):
-	return (y2 - y1) / (x2 - x1)
-	
-	
-def Yintercept(x, y ,m):
-	return (y - m * x)
-	
-def findX(m1,m2,b1,b2):
+def findY(m1, m2, b1, b2):
 	xA = m2 - m1
 	xB = b1 - b2
-	return xB / xA
-	
-def findY(m1,m2,b1,b2):
-	x = findX(m1,m2,b1,b2)
+	x = xB / xA
 	y1 = m1 * x + b1
 	y2 = m2 * x + b2
 	if y1 == y2:
@@ -33,14 +19,37 @@ def findY(m1,m2,b1,b2):
 		return "fail" , x,y1
 
 
-	
-slpLineA = Slope(lineAxOne, lineAyOne, lineAxTwo, lineAyTwo)
-slpLineB = Slope(lineBxOne, lineByOne, lineBxTwo, lineByTwo)
+first_points = {
+	"x1": 192,
+	"y1": -112,
+	"x2": 343,
+	"y2": 7
+	}
+second_points = {
+	"x1": 654,
+	"y1": -58,
+	"x2": 787,
+	"y2": 93
+	}
+slopeA = findSlope(first_points)
+slopeB = findSlope(second_points)
+y_interceptA = findB(first_points,slopeA)
+y_interceptB = findB(second_points,slopeB)
 
-yIntLineA = Yintercept(lineAxOne, lineAyOne, slpLineA)
-yIntLineB = Yintercept(lineBxOne, lineByOne, slpLineB)	
-	
-print("y = " ,slpLineA , "x + " ,yIntLineA)
-print("y = " ,slpLineB , "x + " ,yIntLineB)
 
-print(findY(slpLineA,slpLineB,yIntLineA,yIntLineB))
+# first_points["x1"] = input("First point, first line 'x,y'")
+# print(first_points["x1"])
+# print(first_points["y1"])
+# aSecond = input("Second point, first line 'x,y'") 
+# bFirst = input("First point, second line 'x,y'") 
+# bSecond = input("Second point, second line 'x,y'") 
+# aFirstx, aFirsty = aFirst.split(",")
+# aSecondx, aSecondy = aSecond.split(",")
+# bFirstx, bFirsty = bFirst.split(",")
+# bSecondx, bSecondy = bSecond.split(",")
+
+
+print("Line 1 y =" , slopeA, "x +" , y_interceptA)
+print("Line 2 y =" , slopeB, "x +" , y_interceptB)
+
+print(findY(slopeA,slopeB,y_interceptA,y_interceptB))
